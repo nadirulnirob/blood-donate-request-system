@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block title %}Donor Details{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="card shadow mx-auto detail-card">
+
+        <div class="card-body">
+
+            {% if donor.profile_picture %}
+            <img src="{{ donor.profile_picture.url }}" class="profile-image mb-3">
+            {% endif %}
+
+            <h2>
+                {{ donor.user.get_full_name|default:donor.user.username }}
+            </h2>
+
+            <hr>
+
+            <p>
+                <strong>Blood Group:</strong>
+                {{ donor.blood_group }}
+            </p>
+
+            <p>
+                <strong>Location:</strong>
+                {{ donor.location }}
+            </p>
+
+            <p>
+                <strong>Phone:</strong>
+                {{ donor.phone }}
+            </p>
+
+            <p>
+                <strong>Last Donation:</strong>
+                {{ donor.last_donation_date|default:"Not provided" }}
+            </p>
+
+            <p>
+                <strong>Availability:</strong>
+                {{ donor.availability }}
+            </p>
+
+            <p>
+                <strong>Description:</strong>
+                {{ donor.description|default:"No description provided." }}
+            </p>
+
+            <div class="alert alert-info">
+                O- is commonly considered a universal red-cell donor,
+                while AB+ is commonly considered a universal red-cell
+                recipient. Actual transfusion decisions must follow
+                hospital testing and medical guidance.
+            </div>
+
+            {% if user == donor.user %}
+
+            <a href="{% url 'donor_edit' donor.pk %}" class="btn btn-danger">
+                Edit
+            </a>
+
+            <a href="{% url 'donor_delete' donor.pk %}" class="btn btn-outline-danger">
+                Delete
+            </a>
+
+            {% endif %}
+
+            <a href="{% url 'donor_list' %}" class="btn btn-secondary">
+                Back
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

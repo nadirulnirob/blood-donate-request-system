@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %}My Requests{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <h2 class="mb-4">My Blood Requests</h2>
+
+    <div class="row g-4">
+
+        {% for request in requests %}
+
+        <div class="col-md-6">
+
+            <div class="card shadow-sm h-100">
+
+                <div class="card-body">
+
+                    <h4>{{ request.patient_name }}</h4>
+
+                    <p>
+                        <strong>Blood:</strong>
+                        {{ request.blood_group }}
+                    </p>
+
+                    <p>
+                        <strong>Hospital:</strong>
+                        {{ request.hospital_name }}
+                    </p>
+
+                    <p>
+                        <strong>Date:</strong>
+                        {{ request.required_date }}
+                    </p>
+
+                    <p>
+                        <strong>Bags:</strong>
+                        {{ request.bags_required }}
+                    </p>
+
+                    <p>
+                        <strong>Status:</strong>
+                        {{ request.status }}
+                    </p>
+
+                    <a href="{% url 'request_detail' request.pk %}" class="btn btn-danger">
+                        View
+                    </a>
+
+                    <a href="{% url 'request_edit' request.pk %}" class="btn btn-outline-danger">
+                        Edit
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="alert alert-info">
+            You have not created any blood requests yet.
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

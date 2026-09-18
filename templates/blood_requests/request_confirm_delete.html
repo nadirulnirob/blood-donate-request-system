@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete Request{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="form-card mx-auto text-center">
+
+        <h2>Delete Blood Request?</h2>
+
+        <p>
+            Are you sure you want to delete the request for
+            <strong>{{ blood_request.patient_name }}</strong>?
+        </p>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <button class="btn btn-danger">
+                Yes, Delete
+            </button>
+
+            <a href="{% url 'request_detail' blood_request.pk %}" class="btn btn-secondary">
+                Cancel
+            </a>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

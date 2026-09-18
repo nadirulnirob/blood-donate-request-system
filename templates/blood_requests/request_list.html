@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+
+{% block title %}Blood Requests{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <h2 class="text-center mb-4">Blood Requests</h2>
+
+    <div class="card p-4 shadow-sm mb-4">
+
+        <form method="get">
+
+            <div class="row g-3">
+
+                <div class="col-md-4">
+
+                    <label>Blood Group</label>
+
+                    <select name="blood_group" class="form-select">
+
+                        <option value="">All Blood Groups</option>
+
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <label>Location</label>
+
+                    <input type="text" name="location" value="{{ location|default:'' }}" class="form-control"
+                        placeholder="Hospital location">
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <label>Status</label>
+
+                    <select name="status" class="form-select">
+
+                        <option value="">All</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Fulfilled">Fulfilled</option>
+                        <option value="Cancelled">Cancelled</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <button class="btn btn-danger mt-3">
+                Search
+            </button>
+
+            <a href="{% url 'request_list' %}" class="btn btn-secondary mt-3">
+                Clear
+            </a>
+
+        </form>
+
+    </div>
+
+    <div class="table-responsive">
+
+        <table class="table table-bordered table-hover align-middle">
+
+            <thead class="table-danger">
+
+                <tr>
+                    <th>Patient</th>
+                    <th>Blood Group</th>
+                    <th>Hospital</th>
+                    <th>Location</th>
+                    <th>Date</th>
+                    <th>Bags</th>
+                    <th>Contact</th>
+                    <th>Status</th>
+                    <th>Details</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for request in requests %}
+
+                <tr>
+
+                    <td>{{ request.patient_name }}</td>
+                    <td>{{ request.blood_group }}</td>
+                    <td>{{ request.hospital_name }}</td>
+                    <td>{{ request.hospital_location }}</td>
+                    <td>{{ request.required_date }}</td>
+                    <td>{{ request.bags_required }}</td>
+                    <td>{{ request.contact_number }}</td>
+
+                    <td>
+                        <span class="badge
+                        {% if request.status == 'Pending' %}
+                            bg-warning text-dark
+                        {% elif request.status == 'Fulfilled' %}
+                            bg-success
+                        {% else %}
+                            bg-secondary
+                        {% endif %}">
+                            {{ request.status }}
+                        </span>
+                    </td>
+
+                    <td>
+                        <a href="{% url 'request_detail' request.pk %}" class="btn btn-sm btn-danger">
+                            View
+                        </a>
+                    </td>
+
+                </tr>
+
+                {% empty %}
+
+                <tr>
+                    <td colspan="9" class="text-center">
+                        No blood requests found.
+                    </td>
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    {% if requests.has_other_pages %}
+
+    <nav>
+        <ul class="pagination justify-content-center">
+
+            {% if requests.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ requests.previous_page_number }}">
+                    Previous
+                </a>
+            </li>
+            {% endif %}
+
+            <li class="page-item active">
+                <span class="page-link">
+                    {{ requests.number }}
+                </span>
+            </li>
+
+            {% if requests.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ requests.next_page_number }}">
+                    Next
+                </a>
+            </li>
+            {% endif %}
+
+        </ul>
+    </nav>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

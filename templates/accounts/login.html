@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="form-card mx-auto">
+
+        <h2 class="text-center mb-4">Login</h2>
+
+        <form method="post">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button class="btn btn-danger w-100">
+                Login
+            </button>
+        </form>
+
+        <p class="text-center mt-3">
+            Don't have an account?
+            <a href="{% url 'register' %}">Register</a>
+        </p>
+
+    </div>
+
+</div>
+
+{% endblock %}

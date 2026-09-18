@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete Donor{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="form-card mx-auto text-center">
+
+        <h2>Delete Donor Profile?</h2>
+
+        <p>
+            Are you sure you want to delete this donor profile?
+        </p>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <button class="btn btn-danger">
+                Yes, Delete
+            </button>
+
+            <a href="{% url 'donor_detail' donor.pk %}" class="btn btn-secondary">
+                Cancel
+            </a>
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

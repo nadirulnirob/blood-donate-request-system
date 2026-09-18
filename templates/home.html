@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Blood Donate & Request{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+    <div class="container text-center">
+        <h1>Blood Donate & Request</h1>
+        <p>Find a donor. Save a life.</p>
+
+        <div class="mt-4">
+            <a href="{% url 'donor_list' %}" class="btn btn-light btn-lg me-2">
+                Find Blood Donor
+            </a>
+
+            {% if user.is_authenticated %}
+            <a href="{% url 'request_create' %}" class="btn btn-outline-light btn-lg">
+                Request Blood
+            </a>
+            {% else %}
+            <a href="{% url 'register' %}" class="btn btn-outline-light btn-lg">
+                Request Blood
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<div class="container py-5">
+
+    <div class="row text-center mb-5">
+
+        <div class="col-md-4">
+            <div class="stat-card">
+                <h2>{{ donors }}</h2>
+                <p>Available Donors</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="stat-card">
+                <h2>{{ requests }}</h2>
+                <p>Pending Requests</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="stat-card">
+                <h2>8</h2>
+                <p>Blood Groups</p>
+            </div>
+        </div>
+
+    </div>
+
+    <h2 class="text-center mb-4">Quick Actions</h2>
+
+    <div class="row g-4">
+
+        <div class="col-md-3">
+            <div class="card action-card">
+                <div class="card-body text-center">
+                    <h4>Find Donor</h4>
+                    <p>Search available blood donors.</p>
+                    <a href="{% url 'donor_list' %}" class="btn btn-danger">
+                        Find Donors
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card action-card">
+                <div class="card-body text-center">
+                    <h4>Request Blood</h4>
+                    <p>Create a blood request.</p>
+                    <a href="{% url 'request_create' %}" class="btn btn-danger">
+                        Request
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card action-card">
+                <div class="card-body text-center">
+                    <h4>Become a Donor</h4>
+                    <p>Create your donor profile.</p>
+                    <a href="{% url 'donor_create' %}" class="btn btn-danger">
+                        Become Donor
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card action-card">
+                <div class="card-body text-center">
+                    <h4>Blood Requests</h4>
+                    <p>View current blood requests.</p>
+                    <a href="{% url 'request_list' %}" class="btn btn-danger">
+                        View Requests
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}My Profile{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="card shadow mx-auto profile-card">
+
+        <div class="card-body text-center">
+
+            {% if profile.profile_picture %}
+            <img src="{{ profile.profile_picture.url }}" class="profile-image mb-3">
+            {% endif %}
+
+            <h2>{{ profile.full_name }}</h2>
+
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Phone:</strong> {{ profile.phone }}</p>
+            <p><strong>Blood Group:</strong> {{ profile.blood_group }}</p>
+            <p><strong>Location:</strong> {{ profile.location }}</p>
+
+            {% if profile.date_of_birth %}
+            <p>
+                <strong>Date of Birth:</strong>
+                {{ profile.date_of_birth }}
+            </p>
+            {% endif %}
+
+            <a href="{% url 'profile_edit' %}" class="btn btn-danger">
+                Edit Profile
+            </a>
+
+            {% if donor %}
+            <a href="{% url 'donor_detail' donor.pk %}" class="btn btn-outline-danger">
+                My Donor Profile
+            </a>
+            {% else %}
+            <a href="{% url 'donor_create' %}" class="btn btn-outline-danger">
+                Become a Donor
+            </a>
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

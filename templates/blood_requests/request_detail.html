@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block title %}Request Details{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="card shadow mx-auto detail-card">
+
+        <div class="card-body">
+
+            <h2>Blood Request Details</h2>
+
+            <hr>
+
+            <p>
+                <strong>Patient Name:</strong>
+                {{ blood_request.patient_name }}
+            </p>
+
+            <p>
+                <strong>Blood Group:</strong>
+                {{ blood_request.blood_group }}
+            </p>
+
+            <p>
+                <strong>Hospital:</strong>
+                {{ blood_request.hospital_name }}
+            </p>
+
+            <p>
+                <strong>Hospital Location:</strong>
+                {{ blood_request.hospital_location }}
+            </p>
+
+            <p>
+                <strong>Required Date:</strong>
+                {{ blood_request.required_date }}
+            </p>
+
+            <p>
+                <strong>Bags Required:</strong>
+                {{ blood_request.bags_required }}
+            </p>
+
+            <p>
+                <strong>Contact Number:</strong>
+                {{ blood_request.contact_number }}
+            </p>
+
+            <p>
+                <strong>Reason / Description:</strong>
+                {{ blood_request.description }}
+            </p>
+
+            <p>
+                <strong>Status:</strong>
+                {{ blood_request.status }}
+            </p>
+
+            <p>
+                <strong>Requester:</strong>
+                {{ blood_request.requester.username }}
+            </p>
+
+            <p>
+                <strong>Created:</strong>
+                {{ blood_request.created_at }}
+            </p>
+
+            {% if user == blood_request.requester %}
+
+            <a href="{% url 'request_edit' blood_request.pk %}" class="btn btn-danger">
+                Edit
+            </a>
+
+            <a href="{% url 'request_delete' blood_request.pk %}" class="btn btn-outline-danger">
+                Delete
+            </a>
+
+            {% endif %}
+
+            <a href="{% url 'request_list' %}" class="btn btn-secondary">
+                Back
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
